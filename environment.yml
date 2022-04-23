@@ -1,0 +1,15 @@
+name: insect-pest-env
+channels:
+  - conda-forge
+  - anaconda
+  - pytorch
+dependencies:
+  - numpy
+  - matplotlib
+  - pandas
+  - pytorch
+  - pip
+  - pillow
+  - torchvision
+  - tqdm
+  - wandb
