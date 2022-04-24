@@ -25,7 +25,7 @@ model_children = list(model.children())
 summary(model, (3, 224, 224))
 
 
-wandb.init(project='insect-pest-recognition', name="MobileNetV3-small_cutmix_sparse_dlr", resume=True)
+wandb.init(project='insect-pest-recognition', name="MobileNetV3-small_cutmix_sparse_dlr", resume=True, reinit=True)
 wandb.watch(model, log='all')
 
 epochs = 200
