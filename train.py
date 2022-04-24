@@ -1,6 +1,6 @@
 import torch
-from src.dataloader import *
-from src.data_augmentation import *
+from src.dataloader import get_dataloader
+from src.data_augmentation import preprocess
 
 
 train_transform, val_transfrom, test_transform = preprocess(crop_size=224)
