@@ -28,7 +28,7 @@ summary(model, (3, 224, 224))
 wandb.init(project='test-train-labkc', name="MobileNetV3", resume=True)
 wandb.watch(model, log='all')
 
-epochs = 5
+epochs = 2
 train_cost, val_cost = [], []
 train_acc, val_acc = [], []
 for i in range(epochs):
