@@ -3,10 +3,10 @@ import wandb
 
 from torch import nn, optim
 from torchsummary import summary
-from src.dataloader import get_dataloader
-from src.model import InsectPestClassifier
+from src.dataset import get_dataloader
+from src.models import InsectPestClassifier
 from torch.optim.lr_scheduler import StepLR
-from src.data_augmentation import preprocess
+from src.augmentation import preprocess
 from src.training_loop import loop_function
 
 

@@ -1,3 +1,4 @@
-from .data_augmentation import *
-from .sparse_regularization import *
-from .dataloader import *
+from .regulerizer import *
+from .models import *
+from .dataset import *
+from .augmentation import *
