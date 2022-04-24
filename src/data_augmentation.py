@@ -45,10 +45,11 @@ def cutmix(minibatch, alpha):
     rw = img_W * torch.sqrt(1 - lam)
     rh = img_H * torch.sqrt(1 - lam)
 
-    x1 = torch.round(torch.clamp(rx - rw // 2, 0, img_W))
-    y1 = torch.round(torch.clamp(ry - rh // 2, 0, img_H))
-    x2 = torch.round(torch.clamp(rx + rw // 2, 0, img_W))
-    y2 = torch.round(torch.clamp(ry + rh // 2, 0, img_H))
+    x1 = torch.round(torch.clamp(torch.div(rx - rw, 2, rounding_mode='floor'), 0, img_W))
+    y1 = torch.round(torch.clamp(torch.div(ry - rh, 2, rounding_mode='floor'), 0, img_H))
+    y1 = torch.round(torch.clamp(torch.div(ry - rh, 2, rounding_mode='floor'), 0, img_H))
+    x2 = torch.round(torch.clamp(torch.div(rx + rw, 2, rounding_mode='floor'), 0, img_W))
+    y2 = torch.round(torch.clamp(torch.div(ry + rh, 2, rounding_mode='floor'), 0, img_H))
      
     lam = 1 - ((x2 - x1)  * (y2 - y1) / (img_H * img_W))
     data[ : , : , int(y1) : int(y2), int(x1) : int(x2)] = data_shuffled[ : , : , int(y1) : int(y2), int(x1) : int(x2) ] 

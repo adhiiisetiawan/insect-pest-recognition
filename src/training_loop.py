@@ -1,8 +1,8 @@
 from tqdm import tqdm
-from data_augmentation import cutmix
-from sparse_regularization import sparse_loss
+from .data_augmentation import cutmix
+from .sparse_regularization import sparse_loss
 
-def loop_function(mode, dataset, dataloader, model, criterion, optimizer, device):
+def loop_function(mode, dataset, dataloader, model, criterion, optimizer, device, model_children):
     if mode == 'train':
         model.train()
     elif mode == 'val':
@@ -18,7 +18,7 @@ def loop_function(mode, dataset, dataloader, model, criterion, optimizer, device
             output = model(feature) #feedforward
             
             cutmix_loss = criterion(output, target_a) * lam + criterion(output, target_b) * (1 - lam) #hitung loss
-            l1_loss = sparse_loss(model, feature)
+            l1_loss = sparse_loss(model, feature, model_children)
 
             loss = cutmix_loss + 0.001 * l1_loss
 
@@ -28,7 +28,7 @@ def loop_function(mode, dataset, dataloader, model, criterion, optimizer, device
         elif mode == 'val':
             output = model(feature) #feedforward
             cross_entropy_loss = criterion(output, target) #hitung loss
-            l1_loss = sparse_loss(model, feature)
+            l1_loss = sparse_loss(model, feature, model_children)
             # add the sparsity penalty
             loss = cross_entropy_loss + 0.001 * l1_loss
             
