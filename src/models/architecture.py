@@ -7,10 +7,6 @@ class InsectPestClassifier(nn.Module):
         self.mobilenet = mobilenet_v3_small(pretrained=True)
         self.freeze()
         self.mobilenet.classifier = nn.Sequential(
-            # nn.Linear(1280, 1024),
-            # nn.ReLU(),
-            # nn.Dropout(0.2),
-
             nn.Linear(576, 512),
             nn.ReLU(),
             nn.Dropout(0.2),

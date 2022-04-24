@@ -25,10 +25,10 @@ model_children = list(model.children())
 summary(model, (3, 224, 224))
 
 
-wandb.init(project='test-train-labkc', name="MobileNetV3", resume=True)
+wandb.init(project='insect-pest-recognition', name="MobileNetV3-small_cutmix_sparse_dlr", resume=True)
 wandb.watch(model, log='all')
 
-epochs = 2
+epochs = 200
 train_cost, val_cost = [], []
 train_acc, val_acc = [], []
 for i in range(epochs):
