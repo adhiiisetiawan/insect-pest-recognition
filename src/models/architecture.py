@@ -1,13 +1,13 @@
 from torch import nn
-from torchvision.models import mobilenet_v3_small
+from torchvision.models import mobilenet_v3_large
 
 class InsectPestClassifier(nn.Module):
     def __init__(self):
         super().__init__()
-        self.mobilenet = mobilenet_v3_small(pretrained=True)
+        self.mobilenet = mobilenet_v3_large(pretrained=True)
         self.freeze()
         self.mobilenet.classifier = nn.Sequential(
-            nn.Linear(576, 512),
+            nn.Linear(960, 512),
             nn.ReLU(),
             nn.Dropout(0.2),
 
