@@ -25,10 +25,10 @@ model_children = list(model.children())
 summary(model, (3, 224, 224))
 
 
-wandb.init(project='test-ip102', name="MobileNetV2_cutmix_sparse_dlr", resume=True, reinit=True)
+wandb.init(project='large-scale-pest-recognition', name="MobileNetV2_cutmix_sparse_dlr", reinit=True)
 wandb.watch(model, log='all')
 
-epochs = 2
+epochs = 150
 train_cost, val_cost = [], []
 train_acc, val_acc = [], []
 for i in range(epochs):
@@ -49,7 +49,7 @@ torch.save({
     "model_state_dict": model.state_dict(),
     "optimizer_state_dict": optimizer.state_dict(),
     "scheduler":scheduler.state_dict(),
-}, "./output/checkpoint1.pth")
+}, "./output/checkpoint1_mobilenetv2.pth")
 
 
 # Fine Tuning
@@ -59,7 +59,7 @@ scheduler = StepLR(optimizer, step_size=50, gamma=0.1)
 
 summary(model, (3, 224, 224))
 
-ft_epochs = 2
+ft_epochs = 150
 train_cost, val_cost = [], []
 train_acc, val_acc = [], []
 for i in range(ft_epochs):
