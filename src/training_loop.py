@@ -1,5 +1,4 @@
 from tqdm import tqdm
-from .regulerizer import sparse_loss
 
 
 def loop_function(mode, dataset, dataloader, model, criterion, optimizer, device, model_children):
