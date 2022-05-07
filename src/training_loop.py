@@ -6,7 +6,7 @@ def loop_function(mode, dataset, dataloader, model, criterion, optimizer, device
         model.train()
     elif mode == 'val':
         model.eval()
-        
+       
     cost = correct = 0
     for feature, target in tqdm(dataloader, desc=mode.title()):
         feature, target = feature.to(device), target.to(device)
