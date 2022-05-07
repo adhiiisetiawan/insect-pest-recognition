@@ -182,4 +182,6 @@ cython_debug/
 insect-pest-venv
 wandb
 *.jpg
+*.png
+*.zip
 *.tar
