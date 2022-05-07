@@ -1,6 +1,6 @@
 from tqdm import tqdm
-from .augmentation import cutmix
 from .regulerizer import sparse_loss
+
 
 def loop_function(mode, dataset, dataloader, model, criterion, optimizer, device, model_children):
     if mode == 'train':
