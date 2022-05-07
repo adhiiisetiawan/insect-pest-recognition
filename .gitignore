@@ -183,3 +183,5 @@ insect-pest-venv
 wandb
 *.jpg
 *.tar
+*.png
+*.zip
