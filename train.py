@@ -13,20 +13,17 @@ from src.training_loop import loop_function
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(device)
 
-train_transform, val_transfrom, test_transform = preprocess(crop_size=224)
+tr_transform, vl_transfrom, ts_transform = preprocess(crop_size=224)
 train_dl, val_dl, test_dl = get_dataloader(batch_size=8,
-                                           train_transform=train_transform,
-                                           val_transfrom=val_transfrom,
-                                           test_transform=test_transform)
+                                           train_transform=tr_transform,
+                                           val_transform=vl_transfrom,
+                                           test_transform=ts_transform)
 
 model = InsectPestClassifier().to(device)
 criterion = nn.CrossEntropyLoss().to(device)
 optimizer = optim.Adam(model.parameters(), lr=0.01)
 
-summary(model, (3, 224, 224))
-
-# large-scale-pest-recognition
-wandb.init(project='test-ip102', name="DenseNet169", reinit=True)
+wandb.init(project='large-scale-pest-recognition', name="DenseNet169", reinit=True)
 wandb.watch(model, log='all')
 
 epochs = 300
@@ -51,5 +48,5 @@ wandb.finish()
 torch.save({
     "model_state_dict": model.state_dict(),
     "optimizer_state_dict": optimizer.state_dict(),
-}, "./output/checkpoint1.pth")
-torch.save(model.state_dict(), "./output/mobilenetv3_cutmix_sparse_dlr.pth")
+}, "./output/checkpoint1-densenet169.pth")
+torch.save(model.state_dict(), "./output/densenet169-model.pth")
