@@ -20,23 +20,22 @@ model = InsectPestClassifier().to(device)
 criterion = nn.CrossEntropyLoss().to(device)
 optimizer = optim.AdamW(model.parameters(), lr=0.0001)
 scheduler = StepLR(optimizer, step_size=50, gamma=0.1)
-model_children = list(model.children())
 
 summary(model, (3, 224, 224))
 
 
-wandb.init(project='large-scale-pest-recognition', name="MobileNetV3-large_cutmix_sparse_dlr", reinit=True)
+wandb.init(project='large-scale-pest-recognition', name="MobileNetV3-large_cutmix_dlr", reinit=True)
 wandb.watch(model, log='all')
 
 epochs = 150
 train_cost, val_cost = [], []
 train_acc, val_acc = [], []
 for i in range(epochs):
-    cost_train, acc_train = loop_function('train', train_dl.dataset, train_dl, model, criterion, optimizer, device, model_children)
+    cost_train, acc_train = loop_function('train', train_dl.dataset, train_dl, model, criterion, optimizer, device)
     train_cost.append(cost_train)
     train_acc.append(acc_train)
     with torch.no_grad():
-        cost_val, acc_val = loop_function('val', val_dl.dataset, val_dl, model, criterion, optimizer, device, model_children)
+        cost_val, acc_val = loop_function('val', val_dl.dataset, val_dl, model, criterion, optimizer, device)
         val_cost.append(cost_val)
         val_acc.append(acc_val)
     scheduler.step()
@@ -49,7 +48,7 @@ torch.save({
     "model_state_dict": model.state_dict(),
     "optimizer_state_dict": optimizer.state_dict(),
     "scheduler":scheduler.state_dict(),
-}, "./output/checkpoint1-mobilenetv3-large.pth")
+}, "/home/adhi/output-model/checkpoint1-mobilenetv3l-cutmix.pth")
 
 
 # Fine Tuning
@@ -63,11 +62,11 @@ ft_epochs = 150
 train_cost, val_cost = [], []
 train_acc, val_acc = [], []
 for i in range(ft_epochs):
-    cost_train, acc_train = loop_function('train', train_dl.dataset, train_dl, model, criterion, optimizer, device, model_children)
+    cost_train, acc_train = loop_function('train', train_dl.dataset, train_dl, model, criterion, optimizer, device)
     train_cost.append(cost_train)
     train_acc.append(acc_train)
     with torch.no_grad():
-        cost_val, acc_val = loop_function('val', val_dl.dataset, val_dl, model, criterion, optimizer, device, model_children)
+        cost_val, acc_val = loop_function('val', val_dl.dataset, val_dl, model, criterion, optimizer, device)
         val_cost.append(cost_val)
         val_acc.append(acc_val)
     scheduler.step()
@@ -79,4 +78,4 @@ for i in range(ft_epochs):
 print("Finished training")
 wandb.finish()
 
-torch.save(model.state_dict(), "./output/mobilenetv3-large_cutmix_sparse_dlr.pth")
+torch.save(model.state_dict(), "/home/adhi/output-model/mobilenetv3-large_cutmix_dlr.pth")
