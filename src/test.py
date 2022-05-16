@@ -10,7 +10,7 @@ print(device)
 train_transform, val_transfrom, test_transform = preprocess(crop_size=224)
 train_dl, val_dl, test_dl = get_dataloader(128, train_transform, val_transfrom, test_transform)
 
-filename = "/home/adhi/output-model/mobilenetv3-large_cutmix_sparse_dlr.pth"
+filename = "/home/adhi/output-model/mobilenetv3-large_cutmix_dlr.pth"
 
 model = InsectPestClassifier().to(device)
 model.load_state_dict(torch.load(filename))
