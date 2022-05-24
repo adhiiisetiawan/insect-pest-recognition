@@ -25,7 +25,7 @@ model_children = list(model.children())
 summary(model, (3, 224, 224))
 
 
-wandb.init(project='large-scale-pest-recognition', name="MobileNetV3-small_cutmix_sparse_dlr", reinit=True)
+wandb.init(project='large-scale-pest-recognition', name="resnet50_cutmix_sparse_dlr", reinit=True)
 wandb.watch(model, log='all')
 
 epochs = 150
@@ -49,7 +49,7 @@ torch.save({
     "model_state_dict": model.state_dict(),
     "optimizer_state_dict": optimizer.state_dict(),
     "scheduler":scheduler.state_dict(),
-}, "./output/checkpoint1.pth")
+}, "/home/adhi/output_model/resnet50_cutmix_sparse_dlr-checkpoint.pth")
 
 
 # Fine Tuning
@@ -79,4 +79,4 @@ for i in range(ft_epochs):
 print("Finished training")
 wandb.finish()
 
-torch.save(model.state_dict(), "./output/mobilenetv3_cutmix_sparse_dlr.pth")
+torch.save(model.state_dict(), "/home/adhi/output_model/resnet50_cutmix_sparse_dlr.pth")
