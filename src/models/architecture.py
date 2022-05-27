@@ -6,7 +6,7 @@ class InsectPestClassifier(nn.Module):
         super().__init__()
         self.resnet = resnet50(pretrained=True)
         self.freeze()
-        self.resnet.classifier = nn.Sequential(
+        self.resnet.fc = nn.Sequential(
             nn.Linear(2048, 1024),
             nn.ReLU(),
             nn.Dropout(0.2),
