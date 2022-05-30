@@ -49,7 +49,7 @@ torch.save({
     "model_state_dict": model.state_dict(),
     "optimizer_state_dict": optimizer.state_dict(),
     "scheduler":scheduler.state_dict(),
-}, "/home/adhi/output_model/resnet50_cutmix_sparse_dlr-checkpoint.pth")
+}, "/home/adhi/output-model/resnet50_cutmix_sparse_dlr-checkpoint.pth")
 
 
 # Fine Tuning
@@ -79,4 +79,4 @@ for i in range(ft_epochs):
 print("Finished training")
 wandb.finish()
 
-torch.save(model.state_dict(), "/home/adhi/output_model/resnet50_cutmix_sparse_dlr.pth")
+torch.save(model.state_dict(), "/home/adhi/output-model/resnet50_cutmix_sparse_dlr.pth")

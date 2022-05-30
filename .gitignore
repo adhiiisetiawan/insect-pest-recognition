@@ -185,3 +185,5 @@ wandb
 *.png
 *.zip
 *.tar
+*.pth
+output
