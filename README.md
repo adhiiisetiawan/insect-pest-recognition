@@ -1,3 +1,1 @@
-# Insect Pest Recognition
-
-On Going
+# Insect Pest Recognition [Under Construction]
